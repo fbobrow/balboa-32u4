@@ -17,6 +17,3 @@ class Motors
 };
 
 #endif
-
-
-
