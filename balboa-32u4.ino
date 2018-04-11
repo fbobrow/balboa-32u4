@@ -1,8 +1,8 @@
 #include "src/drivers/Motors.h"
-#include "src/drivers/IMU.h"
+//#include "src/drivers/IMU.h"
 
 Motors motors;
-IMU imu;
+//IMU imu;
 
 void setup()
 {
@@ -12,6 +12,7 @@ void setup()
 void loop()
 {
   //motors.set_voltages(2,2);
-  Serial.println(imu.accel.x);
+  //imu.read_accel();
+  Serial.println("Hello world!");
   delay(1000);
 }
