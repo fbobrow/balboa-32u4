@@ -11,7 +11,7 @@ void setup()
 
 void loop()
 {
-  //motors.setSpeeds(50,0);
+  //motors.set_voltages(2,2);
   Serial.println(imu.accel.x);
   delay(1000);
 }
