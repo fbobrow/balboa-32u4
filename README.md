@@ -1,9 +1,10 @@
 # Balboa 32U4
 
-Algorithm to control the mobile inverted pendulum Pololu Balboa 32U4
+Algorithm to control the mobile inverted pendulum Pololu Balboa 32U4 containing:
 
-C++ libraries (./src/drv) to access the on-board hardware
-C++ libraries (./src/mod) with estimator and control algorithms
+* C++ libraries (./src/drv) to access the on-board hardware
+
+* C++ libraries (./src/mod) with estimator and control algorithms
 
 ## Folder description:
 ```
