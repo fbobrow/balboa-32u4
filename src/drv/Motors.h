@@ -3,10 +3,16 @@
 
 #include "Arduino.h"
 
+// Define direction and PWM output pins
+#define DIR_L 16
+#define PWM_L 10
+#define DIR_R 15
+#define PWM_R 9
+
 class Motors
 {
   public:
-    // Initialize class
+    // Class constructor
     Motors();
     // Actuate motors
     void actuate();

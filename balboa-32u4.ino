@@ -1,8 +1,10 @@
-#include "src/drv/Motors.h"
 #include "src/drv/IMU.h"
+//#include "src/drv/Encoders.h"
+#include "src/drv/Motors.h"
 
-Motors motors;
 IMU imu;
+//Encoders encoders;
+Motors motors;
 
 void setup()
 {
@@ -14,17 +16,10 @@ void loop()
   //motors.set_voltages(2,2);
   imu.read();
   Serial.print("X: ");
-  Serial.print(imu.accel.x);
+  Serial.print(imu.a.x);
   Serial.print("  |  Y: ");
-  Serial.print(imu.accel.y);
+  Serial.print(imu.a.y);
   Serial.print("  |  Z: ");
-  Serial.println(imu.accel.z);
-  Serial.print("X: ");
-  Serial.print(imu.gyro.x);
-  Serial.print("  |  Y: ");
-  Serial.print(imu.gyro.y);
-  Serial.print("  |  Z: ");
-  Serial.println(imu.gyro.z);
-  Serial.println("");
-  delay(1000);
+  Serial.println(imu.a.z);
+  delay(200);
 }
