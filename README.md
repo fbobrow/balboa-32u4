@@ -1,6 +1,9 @@
 # Balboa 32U4
 
-C++ library for the Arduino IDE to access the on-board hardware of the Pololu Balboa 32U4 robot
+Algorithm to control the mobile inverted pendulum Pololu Balboa 32U4
+
+C++ libraries (./src/drv) to access the on-board hardware
+C++ libraries (./src/mod) with estimator and control algorithms
 
 ## Folder description:
 ```
