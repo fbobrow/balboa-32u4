@@ -1,5 +1,5 @@
-#include "src/drivers/Motors.h"
-#include "src/drivers/IMU.h"
+#include "src/drv/Motors.h"
+#include "src/drv/IMU.h"
 
 Motors motors;
 IMU imu;
@@ -18,7 +18,7 @@ void loop()
   Serial.print("  |  Y: ");
   Serial.print(imu.accel.y);
   Serial.print("  |  Z: ");
-  Serial.println(imu.accel.z);  
+  Serial.println(imu.accel.z);
   Serial.print("X: ");
   Serial.print(imu.gyro.x);
   Serial.print("  |  Y: ");
