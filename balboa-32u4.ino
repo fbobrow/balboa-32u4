@@ -1,25 +1,29 @@
 #include "src/drv/IMU.h"
 //#include "src/drv/Encoders.h"
 #include "src/drv/Motors.h"
+#include "src/mod/Estimators.h"
+#include "src/mod/Controllers.h"
 
 IMU imu;
 //Encoders encoders;
 Motors motors;
+Estimators estimators;
+//Controllers controllers;
 
 void setup()
 {
   imu.init();
+  imu.read();
+  estimators.init(imu.a.x,imu.a.z,imu.g.y);
 }
+
+float angle;
 
 void loop()
 {
   //motors.set_voltages(2,2);
   imu.read();
-  Serial.print("X: ");
-  Serial.print(imu.a.x);
-  Serial.print("  |  Y: ");
-  Serial.print(imu.a.y);
-  Serial.print("  |  Z: ");
-  Serial.println(imu.a.z);
-  delay(200);
+  estimators.estimate_angle(imu.a.x,imu.a.z,imu.g.y);
+  Serial.println(estimators.angle*180/PI);
+  delay(100);
 }

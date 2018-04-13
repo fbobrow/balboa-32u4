@@ -7,6 +7,7 @@ Algorithm to control the mobile inverted pendulum Pololu Balboa 32U4 containing:
 * C++ libraries (./src/mod) with estimator and control algorithms
 
 ## Folder description:
+
 ```
 ./                        | Root
  balboa-32u4.ino          | Main program

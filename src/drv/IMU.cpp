@@ -9,6 +9,9 @@ IMU::IMU()
   a.x_raw = 0;
   a.y_raw = 0;
   a.z_raw = 0;
+  a.x_raw_bias = 0;
+  a.y_raw_bias = 0;
+  a.z_raw_bias = 0;
   a.x = 0.0;
   a.y = 0.0;
   a.z = 0.0;
@@ -16,6 +19,9 @@ IMU::IMU()
   g.x_raw = 0;
   g.y_raw = 0;
   g.z_raw = 0;
+  g.x_raw_bias = 0;
+  g.y_raw_bias = 0;
+  g.z_raw_bias = 0;
   g.x = 0.0;
   g.y = 0.0;
   g.z = 0.0;
@@ -54,8 +60,25 @@ void IMU::init()
   Wire.begin();
   // ODR = 1000 (1.66 kHz (high performance)); FS_XL = 00 (+/-2 g full scale)
   write_register(CTRL1_XL,0b10000000);
-  // ODR = 1000 (1.66 kHz (high performance)); FS_G = 00 (+/-245 dps)
-  write_register(CTRL2_G,0b10000000);
+  // ODR = 1000 (1.66 kHz (high performance)); FS_G = 10 (+/-1000 dps)
+  write_register(CTRL2_G,0b10000100);
+  //
+  delay(100);
+  //
+  int32_t x_raw_bias = 0;
+  int32_t y_raw_bias = 0;
+  int32_t z_raw_bias = 0;
+  for(uint8_t i=0; i<100; i++)
+  {
+    read_gyroscope();
+    x_raw_bias += g.x_raw;
+    y_raw_bias += g.y_raw;
+    z_raw_bias += g.z_raw;
+    delay(1);
+  }
+  g.x_raw_bias = x_raw_bias/100;
+  g.y_raw_bias = y_raw_bias/100;
+  g.z_raw_bias = z_raw_bias/100;
 }
 
 // Read accelerometer data
@@ -93,9 +116,9 @@ void IMU::read_gyroscope()
   g.y_raw = (int16_t)(y_raw_h << 8 | y_raw_l);
   g.z_raw = (int16_t)(z_raw_h << 8 | z_raw_l);
   // Convert raw values into SI units (rad/s)
-  g.x = g.x_raw*(4.375/1000.0)*(3.1415/180);
-  g.y = g.y_raw*(4.375/1000.0)*(3.1415/180);
-  g.z = g.z_raw*(4.375/1000.0)*(3.1415/180);
+  g.x = (g.x_raw-g.x_raw_bias)*(17.5/1000.0)*(3.1415/180);
+  g.y = (g.y_raw-g.y_raw_bias)*(17.5/1000.0)*(3.1415/180);
+  g.z = (g.z_raw-g.z_raw_bias)*(17.5/1000.0)*(3.1415/180);
 }
 
 // Read accelerometer and gyroscope data simultaneously
